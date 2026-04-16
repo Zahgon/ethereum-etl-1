@@ -4,7 +4,7 @@ class StreamerAdapterStub:
         pass
 
     def get_current_block_number(self):
-        return 0
+        pass
 
     def export_all(self, start_block, end_block):
         pass

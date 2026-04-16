@@ -39,15 +39,4 @@ logging_basic_config()
 @click.option('-w', '--max-workers', default=5, show_default=True, type=int, help='The maximum number of workers.')
 def extract_geth_traces(input, batch_size, output, max_workers):
     """Extracts geth traces from JSON lines file."""
-    with smart_open(input, 'r') as geth_traces_file:
-        if input.endswith('.json'):
-            traces_iterable = (json.loads(line) for line in geth_traces_file)
-        else:
-            traces_iterable = (trace for trace in csv.DictReader(geth_traces_file))
-        job = ExtractGethTracesJob(
-            traces_iterable=traces_iterable,
-            batch_size=batch_size,
-            max_workers=max_workers,
-            item_exporter=traces_item_exporter(output))
-
-        job.run()
+    pass

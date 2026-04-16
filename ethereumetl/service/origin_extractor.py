@@ -19,8 +19,7 @@ logger = logging.getLogger(__name__)
 #   "0x017dfd85d4f6cb4dcd715a88101f7b1f06cd1e009b2327a0809d01eb9c91f231"
 #   --> "QmNSUYVKDSvPUnRLKmuxk9diJ6yS96r1TrAXzjTiBcCLAL"
 def hex_to_ipfs_hash(param):
-    data = bytearray.fromhex('1220' + param[2:])
-    return base58.b58encode(data).decode()
+    pass
 
 
 # Helper function. Composes an Origin Protocol fully-qualified listing id.
@@ -28,7 +27,7 @@ def hex_to_ipfs_hash(param):
 # For example:
 #   "1-001-272" refers to listing 272 on marketplace contract version 1, on Mainnet.
 def compose_listing_id(network_id, contract_version, listing_id):
-    return "{}-{}-{}".format(network_id, contract_version, listing_id)
+    pass
 
 
 class OriginEventExtractor(object):
@@ -36,28 +35,4 @@ class OriginEventExtractor(object):
         self.ipfs_client = ipfs_client
 
     def extract_event_from_log(self, receipt_log, contract_version):
-        topics = receipt_log.topics
-        if (topics is None) or (len(topics) == 0):
-            logger.warning("Empty topics in log {} of transaction {}".format(
-                receipt_log.log_index, receipt_log.transaction_hash))
-            return None, []
-
-        topic = topics[0]
-        if topic not in PROCESSABLE_TOPICS:
-            logger.debug("Skip processing event with signature {}".format(topic))
-            return None, []
-
-        if len(topics) < TOPICS_LEN:
-            logger.warning("Unexpected number of topics {} in log {} of transaction {}".format(
-                len(topics),
-                receipt_log.log_index,
-                receipt_log.transaction_hash))
-            return None, []
-
-        listing_id = hex_to_dec(topics[2])
-        ipfs_hash = hex_to_ipfs_hash(receipt_log.data)
-
-        full_listing_id = compose_listing_id(1, contract_version, listing_id)
-        marketplace_listing, shop_products = get_origin_marketplace_data(receipt_log, full_listing_id, self.ipfs_client, ipfs_hash)
-
-        return marketplace_listing, shop_products
+        pass

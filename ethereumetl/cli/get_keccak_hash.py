@@ -35,7 +35,4 @@ from blockchainetl.logging_utils import logging_basic_config
 @click.option('-o', '--output', default='-', show_default=True, type=str, help='The output file. If not specified stdout is used.')
 def get_keccak_hash(input_string, output):
     """Outputs 32-byte Keccak hash of given string."""
-    hash = keccak(text=input_string)
-
-    with smart_open(output, 'w') as output_file:
-        output_file.write('0x{}\n'.format(hash.hex()))
+    pass

@@ -61,31 +61,16 @@ class ExportBlocksJob(BaseJob):
         self.transaction_mapper = EthTransactionMapper()
 
     def _start(self):
-        self.item_exporter.open()
+        pass
 
     def _export(self):
-        self.batch_work_executor.execute(
-            range(self.start_block, self.end_block + 1),
-            self._export_batch,
-            total_items=self.end_block - self.start_block + 1
-        )
+        pass
 
     def _export_batch(self, block_number_batch):
-        blocks_rpc = list(generate_get_block_by_number_json_rpc(block_number_batch, self.export_transactions))
-        response = self.batch_web3_provider.make_batch_request(json.dumps(blocks_rpc))
-        results = rpc_response_batch_to_results(response)
-        blocks = [self.block_mapper.json_dict_to_block(result) for result in results]
-
-        for block in blocks:
-            self._export_block(block)
+        pass
 
     def _export_block(self, block):
-        if self.export_blocks:
-            self.item_exporter.export_item(self.block_mapper.block_to_dict(block))
-        if self.export_transactions:
-            for tx in block.transactions:
-                self.item_exporter.export_item(self.transaction_mapper.transaction_to_dict(tx))
+        pass
 
     def _end(self):
-        self.batch_work_executor.shutdown()
-        self.item_exporter.close()
+        pass

@@ -44,12 +44,4 @@ logging_basic_config()
                    'file://$HOME/Library/Ethereum/geth.ipc or http://localhost:8545/')
 def export_geth_traces(start_block, end_block, batch_size, output, max_workers, provider_uri):
     """Exports traces from geth node."""
-    job = ExportGethTracesJob(
-        start_block=start_block,
-        end_block=end_block,
-        batch_size=batch_size,
-        batch_web3_provider=ThreadLocalProxy(lambda: get_provider_from_uri(provider_uri, batch=True)),
-        max_workers=max_workers,
-        item_exporter=geth_traces_item_exporter(output))
-
-    job.run()
+    pass

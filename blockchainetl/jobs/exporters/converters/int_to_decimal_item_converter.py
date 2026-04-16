@@ -41,7 +41,4 @@ from blockchainetl.jobs.exporters.converters.simple_item_converter import Simple
 class IntToDecimalItemConverter(SimpleItemConverter):
 
     def convert_field(self, key, value):
-        if isinstance(value, int):
-            return Decimal(value)
-        else:
-            return value
+        pass

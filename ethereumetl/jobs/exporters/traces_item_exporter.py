@@ -46,11 +46,4 @@ FIELDS_TO_EXPORT = [
 
 
 def traces_item_exporter(traces_output):
-    return CompositeItemExporter(
-        filename_mapping={
-            'trace': traces_output
-        },
-        field_mapping={
-            'trace': FIELDS_TO_EXPORT
-        }
-    )
+    pass

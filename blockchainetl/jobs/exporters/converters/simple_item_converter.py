@@ -36,12 +36,7 @@ class SimpleItemConverter:
         self.field_converters = field_converters
 
     def convert_item(self, item):
-        return {
-            key: self.convert_field(key, value) for key, value in item.items()
-        }
+        pass
 
     def convert_field(self, key, value):
-        if self.field_converters is not None and key in self.field_converters:
-            return self.field_converters[key](value)
-        else:
-            return value
+        pass

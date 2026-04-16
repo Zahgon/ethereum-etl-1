@@ -48,19 +48,4 @@ logging_basic_config()
 @click.option('--values-as-strings', default=False, show_default=True, is_flag=True, help='Whether to convert values to strings.')
 def extract_tokens(contracts, provider_uri, output, max_workers, values_as_strings=False):
     """Extracts tokens from contracts file."""
-
-    set_max_field_size_limit()
-
-    with smart_open(contracts, 'r') as contracts_file:
-        if contracts.endswith('.json'):
-            contracts_iterable = (json.loads(line) for line in contracts_file)
-        else:
-            contracts_iterable = csv.DictReader(contracts_file)
-        converters = [IntToStringItemConverter(keys=['decimals', 'total_supply'])] if values_as_strings else []
-        job = ExtractTokensJob(
-            contracts_iterable=contracts_iterable,
-            web3=ThreadLocalProxy(lambda: build_web3(get_provider_from_uri(provider_uri))),
-            max_workers=max_workers,
-            item_exporter=tokens_item_exporter(output, converters))
-
-        job.run()
+    pass

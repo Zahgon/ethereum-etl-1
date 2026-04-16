@@ -23,11 +23,7 @@
 
 class BaseJob(object):
     def run(self):
-        try:
-            self._start()
-            self._export()
-        finally:
-            self._end()
+        pass
 
     def _start(self):
         pass

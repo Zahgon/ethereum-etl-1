@@ -46,15 +46,4 @@ logging_basic_config()
 @click.option('-c', '--chain', default='ethereum', show_default=True, type=str, help='The chain network to connect to.')
 def export_contracts(batch_size, contract_addresses, output, max_workers, provider_uri, chain='ethereum'):
     """Exports contracts bytecode and sighashes."""
-    check_classic_provider_uri(chain, provider_uri)
-    with smart_open(contract_addresses, 'r') as contract_addresses_file:
-        contract_addresses = (contract_address.strip() for contract_address in contract_addresses_file
-                              if contract_address.strip())
-        job = ExportContractsJob(
-            contract_addresses_iterable=contract_addresses,
-            batch_size=batch_size,
-            batch_web3_provider=ThreadLocalProxy(lambda: get_provider_from_uri(provider_uri, batch=True)),
-            item_exporter=contracts_item_exporter(output),
-            max_workers=max_workers)
-
-        job.run()
+    pass

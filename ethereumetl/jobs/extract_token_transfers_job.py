@@ -44,21 +44,16 @@ class ExtractTokenTransfersJob(BaseJob):
         self.token_transfer_extractor = EthTokenTransferExtractor()
 
     def _start(self):
-        self.item_exporter.open()
+        pass
 
     def _export(self):
-        self.batch_work_executor.execute(self.logs_iterable, self._extract_transfers)
+        pass
 
     def _extract_transfers(self, log_dicts):
-        for log_dict in log_dicts:
-            self._extract_transfer(log_dict)
+        pass
 
     def _extract_transfer(self, log_dict):
-        log = self.receipt_log_mapper.dict_to_receipt_log(log_dict)
-        token_transfer = self.token_transfer_extractor.extract_transfer_from_log(log)
-        if token_transfer is not None:
-            self.item_exporter.export_item(self.token_transfer_mapper.token_transfer_to_dict(token_transfer))
+        pass
 
     def _end(self):
-        self.batch_work_executor.shutdown()
-        self.item_exporter.close()
+        pass

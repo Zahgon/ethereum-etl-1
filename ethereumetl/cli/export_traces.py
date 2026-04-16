@@ -50,17 +50,4 @@ logging_basic_config()
 def export_traces(start_block, end_block, batch_size, output, max_workers, provider_uri,
                   genesis_traces, daofork_traces, timeout=60, chain='ethereum'):
     """Exports traces from parity node."""
-    if chain == 'classic' and daofork_traces == True:
-        raise ValueError(
-            'Classic chain does not include daofork traces. Disable daofork traces with --no-daofork-traces option.')
-    job = ExportTracesJob(
-        start_block=start_block,
-        end_block=end_block,
-        batch_size=batch_size,
-        web3=ThreadLocalProxy(lambda: build_web3(get_provider_from_uri(provider_uri, timeout=timeout))),
-        item_exporter=traces_item_exporter(output),
-        max_workers=max_workers,
-        include_genesis_traces=genesis_traces,
-        include_daofork_traces=daofork_traces)
-
-    job.run()
+    pass

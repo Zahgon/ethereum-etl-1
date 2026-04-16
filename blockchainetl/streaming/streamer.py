@@ -57,83 +57,33 @@ class Streamer:
         self.last_synced_block = read_last_synced_block(self.last_synced_block_file)
 
     def stream(self):
-        try:
-            if self.pid_file is not None:
-                logging.info('Creating pid file {}'.format(self.pid_file))
-                write_to_file(self.pid_file, str(os.getpid()))
-            self.blockchain_streamer_adapter.open()
-            self._do_stream()
-        finally:
-            self.blockchain_streamer_adapter.close()
-            if self.pid_file is not None:
-                logging.info('Deleting pid file {}'.format(self.pid_file))
-                delete_file(self.pid_file)
+        pass
 
     def _do_stream(self):
-        while True and (self.end_block is None or self.last_synced_block < self.end_block):
-            synced_blocks = 0
-
-            try:
-                synced_blocks = self._sync_cycle()
-            except Exception as e:
-                # https://stackoverflow.com/a/4992124/1580227
-                logging.exception('An exception occurred while syncing block data.')
-                if not self.retry_errors:
-                    raise e
-
-            if synced_blocks <= 0:
-                logging.info('Nothing to sync. Sleeping for {} seconds...'.format(self.period_seconds))
-                time.sleep(self.period_seconds)
+        pass
 
     def _sync_cycle(self):
-        current_block = self.blockchain_streamer_adapter.get_current_block_number()
-
-        target_block = self._calculate_target_block(current_block, self.last_synced_block)
-        blocks_to_sync = max(target_block - self.last_synced_block, 0)
-
-        logging.info('Current block {}, target block {}, last synced block {}, blocks to sync {}'.format(
-            current_block, target_block, self.last_synced_block, blocks_to_sync))
-
-        if blocks_to_sync != 0:
-            self.blockchain_streamer_adapter.export_all(self.last_synced_block + 1, target_block)
-            logging.info('Writing last synced block {}'.format(target_block))
-            write_last_synced_block(self.last_synced_block_file, target_block)
-            self.last_synced_block = target_block
-
-        return blocks_to_sync
+        pass
 
     def _calculate_target_block(self, current_block, last_synced_block):
-        target_block = current_block - self.lag
-        target_block = min(target_block, last_synced_block + self.block_batch_size)
-        target_block = min(target_block, self.end_block) if self.end_block is not None else target_block
-        return target_block
-
-
-def delete_file(file):
-    try:
-        os.remove(file)
-    except OSError:
         pass
 
 
+def delete_file(file):
+    pass
+
+
 def write_last_synced_block(file, last_synced_block):
-    write_to_file(file, str(last_synced_block) + '\n')
+    pass
 
 
 def init_last_synced_block_file(start_block, last_synced_block_file):
-    if os.path.isfile(last_synced_block_file):
-        raise ValueError(
-            '{} should not exist if --start-block option is specified. '
-            'Either remove the {} file or the --start-block option.'
-                .format(last_synced_block_file, last_synced_block_file))
-    write_last_synced_block(last_synced_block_file, start_block)
+    pass
 
 
 def read_last_synced_block(file):
-    with smart_open(file, 'r') as last_synced_block_file:
-        return int(last_synced_block_file.read())
+    pass
 
 
 def write_to_file(file, content):
-    with smart_open(file, 'w') as file_handle:
-        file_handle.write(content)
+    pass

@@ -41,18 +41,4 @@ logging_basic_config()
 @click.option('-w', '--max-workers', default=5, show_default=True, type=int, help='The maximum number of workers.')
 def extract_contracts(traces, batch_size, output, max_workers):
     """Extracts contracts from traces file."""
-
-    set_max_field_size_limit()
-
-    with smart_open(traces, 'r') as traces_file:
-        if traces.endswith('.json'):
-            traces_iterable = (json.loads(line) for line in traces_file)
-        else:
-            traces_iterable = csv.DictReader(traces_file)
-        job = ExtractContractsJob(
-            traces_iterable=traces_iterable,
-            batch_size=batch_size,
-            max_workers=max_workers,
-            item_exporter=contracts_item_exporter(output))
-
-        job.run()
+    pass

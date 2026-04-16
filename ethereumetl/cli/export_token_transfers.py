@@ -46,13 +46,4 @@ logging_basic_config()
 @click.option('-t', '--tokens', default=None, show_default=True, type=str, multiple=True, help='The list of token addresses to filter by.')
 def export_token_transfers(start_block, end_block, batch_size, output, max_workers, provider_uri, tokens):
     """Exports ERC20/ERC721 transfers."""
-    set_max_field_size_limit()
-    job = ExportTokenTransfersJob(
-        start_block=start_block,
-        end_block=end_block,
-        batch_size=batch_size,
-        web3=ThreadLocalProxy(lambda: build_web3(get_provider_from_uri(provider_uri))),
-        item_exporter=token_transfers_item_exporter(output),
-        max_workers=max_workers,
-        tokens=tokens)
-    job.run()
+    pass

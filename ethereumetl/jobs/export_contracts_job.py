@@ -51,39 +51,16 @@ class ExportContractsJob(BaseJob):
         self.contract_mapper = EthContractMapper()
 
     def _start(self):
-        self.item_exporter.open()
+        pass
 
     def _export(self):
-        self.batch_work_executor.execute(self.contract_addresses_iterable, self._export_contracts)
+        pass
 
     def _export_contracts(self, contract_addresses):
-        contracts_code_rpc = list(generate_get_code_json_rpc(contract_addresses))
-        response_batch = self.batch_web3_provider.make_batch_request(json.dumps(contracts_code_rpc))
-
-        contracts = []
-        for response in response_batch:
-            # request id is the index of the contract address in contract_addresses list
-            request_id = response['id']
-            result = rpc_response_to_result(response)
-
-            contract_address = contract_addresses[request_id]
-            contract = self._get_contract(contract_address, result)
-            contracts.append(contract)
-
-        for contract in contracts:
-            self.item_exporter.export_item(self.contract_mapper.contract_to_dict(contract))
+        pass
 
     def _get_contract(self, contract_address, rpc_result):
-        contract = self.contract_mapper.rpc_result_to_contract(contract_address, rpc_result)
-        bytecode = contract.bytecode
-        function_sighashes = self.contract_service.get_function_sighashes(bytecode)
-
-        contract.function_sighashes = function_sighashes
-        contract.is_erc20 = self.contract_service.is_erc20_contract(function_sighashes)
-        contract.is_erc721 = self.contract_service.is_erc721_contract(function_sighashes)
-
-        return contract
+        pass
 
     def _end(self):
-        self.batch_work_executor.shutdown()
-        self.item_exporter.close()
+        pass

@@ -28,4 +28,4 @@ class IpfsClient:
         return self._get(path, False)
 
     def get_json(self, path):
-        return self._get(path, True)
+        pass

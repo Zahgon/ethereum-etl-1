@@ -26,17 +26,13 @@ class MultiItemExporter:
         self.item_exporters = item_exporters
 
     def open(self):
-        for exporter in self.item_exporters:
-            exporter.open()
+        pass
 
     def export_items(self, items):
-        for exporter in self.item_exporters:
-            exporter.export_items(items)
+        pass
 
     def export_item(self, item):
-        for exporter in self.item_exporters:
-            exporter.export_item(item)
+        pass
 
     def close(self):
-        for exporter in self.item_exporters:
-            exporter.close()
+        pass

@@ -38,16 +38,8 @@ class BoundedExecutor:
 
     """See concurrent.futures.Executor#submit"""
     def submit(self, fn, *args, **kwargs):
-        self._semaphore.acquire()
-        try:
-            future = self._delegate.submit(fn, *args, **kwargs)
-        except:
-            self._semaphore.release()
-            raise
-        else:
-            future.add_done_callback(lambda x: self._semaphore.release())
-            return future
+        pass
 
     """See concurrent.futures.Executor#shutdown"""
     def shutdown(self, wait=True):
-        self._delegate.shutdown(wait)
+        pass

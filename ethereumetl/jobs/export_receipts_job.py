@@ -57,26 +57,16 @@ class ExportReceiptsJob(BaseJob):
         self.receipt_log_mapper = EthReceiptLogMapper()
 
     def _start(self):
-        self.item_exporter.open()
+        pass
 
     def _export(self):
-        self.batch_work_executor.execute(self.transaction_hashes_iterable, self._export_receipts)
+        pass
 
     def _export_receipts(self, transaction_hashes):
-        receipts_rpc = list(generate_get_receipt_json_rpc(transaction_hashes))
-        response = self.batch_web3_provider.make_batch_request(json.dumps(receipts_rpc))
-        results = rpc_response_batch_to_results(response)
-        receipts = [self.receipt_mapper.json_dict_to_receipt(result) for result in results]
-        for receipt in receipts:
-            self._export_receipt(receipt)
+        pass
 
     def _export_receipt(self, receipt):
-        if self.export_receipts:
-            self.item_exporter.export_item(self.receipt_mapper.receipt_to_dict(receipt))
-        if self.export_logs:
-            for log in receipt.logs:
-                self.item_exporter.export_item(self.receipt_log_mapper.receipt_log_to_dict(log))
+        pass
 
     def _end(self):
-        self.batch_work_executor.shutdown()
-        self.item_exporter.close()
+        pass

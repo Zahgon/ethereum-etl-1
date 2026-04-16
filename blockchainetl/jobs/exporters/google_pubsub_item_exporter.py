@@ -48,58 +48,20 @@ class GooglePubSubItemExporter:
         pass
 
     def export_items(self, items):
-        try:
-            self._export_items_with_timeout(items)
-        except timeout_decorator.TimeoutError as e:
-            # A bug in PubSub publisher that makes it stalled after running for some time.
-            # Exception in thread Thread-CommitBatchPublisher:
-            # details = "channel is in state TRANSIENT_FAILURE"
-            # https://stackoverflow.com/questions/55552606/how-can-one-catch-exceptions-in-python-pubsub-subscriber-that-are-happening-in-i?noredirect=1#comment97849067_55552606
-            logging.info('Recreating Pub/Sub publisher.')
-            self.publisher = self.create_publisher()
-            raise e
+        pass
 
     @timeout_decorator.timeout(300)
     def _export_items_with_timeout(self, items):
-        futures = []
-        for item in items:
-            message_future = self.export_item(item)
-            futures.append(message_future)
-
-        for future in futures:
-            # result() blocks until the message is published.
-            future.result()
+        pass
 
     def export_item(self, item):
-        item_type = item.get('type')
-        if item_type is not None and item_type in self.item_type_to_topic_mapping:
-            topic_path = self.item_type_to_topic_mapping.get(item_type)
-            data = json.dumps(item).encode('utf-8')
-
-            ordering_key = 'all' if self.enable_message_ordering else ''
-            message_future = self.publisher.publish(topic_path, data=data, ordering_key=ordering_key, **self.get_message_attributes(item))
-            return message_future
-        else:
-            logging.warning('Topic for item type "{}" is not configured.'.format(item_type))
+        pass
 
     def get_message_attributes(self, item):
-        attributes = {}
-
-        for attr_name in self.message_attributes:
-            if item.get(attr_name) is not None:
-                attributes[attr_name] = str(item.get(attr_name))
-
-        return attributes
+        pass
 
     def create_publisher(self):
-        batch_settings = pubsub_v1.types.BatchSettings(
-            max_bytes=self.batch_max_bytes,
-            max_latency=self.batch_max_latency,
-            max_messages=self.batch_max_messages,
-        )
-
-        publisher_options = pubsub_v1.types.PublisherOptions(enable_message_ordering=self.enable_message_ordering)
-        return pubsub_v1.PublisherClient(batch_settings=batch_settings, publisher_options=publisher_options)
+        pass
 
     def close(self):
         pass

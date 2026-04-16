@@ -44,13 +44,4 @@ logging_basic_config()
               help='The URI of the web3 provider e.g. file://$HOME/Library/Ethereum/geth.ipc or http://localhost:8545/')
 def export_origin(start_block, end_block, batch_size, marketplace_output, shop_output, max_workers, provider_uri):
     """Exports Origin Protocol data."""
-    job = ExportOriginJob(
-        start_block=start_block,
-        end_block=end_block,
-        batch_size=batch_size,
-        web3=ThreadLocalProxy(lambda: build_web3(get_provider_from_uri(provider_uri))),
-        ipfs_client=get_origin_ipfs_client(),
-        marketplace_listing_exporter=origin_marketplace_listing_item_exporter(marketplace_output),
-        shop_product_exporter=origin_shop_product_item_exporter(shop_output),
-        max_workers=max_workers)
-    job.run()
+    pass

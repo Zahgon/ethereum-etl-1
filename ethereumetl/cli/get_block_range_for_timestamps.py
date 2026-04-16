@@ -44,12 +44,4 @@ logging_basic_config()
 @click.option('-c', '--chain', default='ethereum', show_default=True, type=str, help='The chain network to connect to.')
 def get_block_range_for_timestamps(provider_uri, start_timestamp, end_timestamp, output, chain='ethereum'):
     """Outputs start and end blocks for given timestamps."""
-    provider_uri = check_classic_provider_uri(chain, provider_uri)
-    provider = get_provider_from_uri(provider_uri)
-    web3 = build_web3(provider)
-    eth_service = EthService(web3)
-
-    start_block, end_block = eth_service.get_block_range_for_timestamps(start_timestamp, end_timestamp)
-
-    with smart_open(output, 'w') as output_file:
-        output_file.write('{},{}\n'.format(start_block, end_block))
+    pass

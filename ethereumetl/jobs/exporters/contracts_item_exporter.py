@@ -34,11 +34,4 @@ FIELDS_TO_EXPORT = [
 
 
 def contracts_item_exporter(contracts_output):
-    return CompositeItemExporter(
-        filename_mapping={
-            'contract': contracts_output
-        },
-        field_mapping={
-            'contract': FIELDS_TO_EXPORT
-        }
-    )
+    pass

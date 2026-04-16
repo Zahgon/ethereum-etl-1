@@ -44,16 +44,4 @@ set_max_field_size_limit()
 @click.option('--values-as-strings', default=False, show_default=True, is_flag=True, help='Whether to convert values to strings.')
 def extract_token_transfers(logs, batch_size, output, max_workers, values_as_strings=False):
     """Extracts ERC20/ERC721 transfers from logs file."""
-    with smart_open(logs, 'r') as logs_file:
-        if logs.endswith('.json'):
-            logs_reader = (json.loads(line) for line in logs_file)
-        else:
-            logs_reader = csv.DictReader(logs_file)
-        converters = [IntToStringItemConverter(keys=['value'])] if values_as_strings else []
-        job = ExtractTokenTransfersJob(
-            logs_iterable=logs_reader,
-            batch_size=batch_size,
-            max_workers=max_workers,
-            item_exporter=token_transfers_item_exporter(output, converters=converters))
-
-        job.run()
+    pass

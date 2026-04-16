@@ -32,4 +32,4 @@ from ethereumetl import misc_utils
 @click.option('-f', '--field', required=True, type=str, help='The field name to extract.')
 def extract_field(input, output, field):
     """Extracts field from given CSV or JSON newline-delimited file."""
-    misc_utils.extract_field(input, output, field)
+    pass

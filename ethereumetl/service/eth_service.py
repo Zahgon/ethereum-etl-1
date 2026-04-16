@@ -32,37 +32,10 @@ class EthService(object):
         self._graph_operations = GraphOperations(graph)
 
     def get_block_range_for_date(self, date):
-        start_datetime = datetime.combine(date, datetime.min.time().replace(tzinfo=timezone.utc))
-        end_datetime = datetime.combine(date, datetime.max.time().replace(tzinfo=timezone.utc))
-        return self.get_block_range_for_timestamps(start_datetime.timestamp(), end_datetime.timestamp())
+        pass
 
     def get_block_range_for_timestamps(self, start_timestamp, end_timestamp):
-        start_timestamp = int(start_timestamp)
-        end_timestamp = int(end_timestamp)
-        if start_timestamp > end_timestamp:
-            raise ValueError('start_timestamp must be lesser than end_timestamp')
-
-        try:
-            start_block_bounds = self._graph_operations.get_bounds_for_y_coordinate(start_timestamp)
-        except OutOfBoundsError:
-            start_block_bounds = (0, 0)
-
-        try:
-            end_block_bounds = self._graph_operations.get_bounds_for_y_coordinate(end_timestamp)
-        except OutOfBoundsError as e:
-            raise OutOfBoundsError('The existing blocks do not completely cover the given time range') from e
-
-        if start_block_bounds == end_block_bounds and start_block_bounds[0] != start_block_bounds[1]:
-            raise ValueError('The given timestamp range does not cover any blocks')
-
-        start_block = start_block_bounds[1]
-        end_block = end_block_bounds[0]
-
-        # The genesis block has timestamp 0 but we include it with the 1st block.
-        if start_block == 1:
-            start_block = 0
-
-        return start_block, end_block
+        pass
 
 
 class BlockTimestampGraph(object):
@@ -71,14 +44,14 @@ class BlockTimestampGraph(object):
 
     def get_first_point(self):
         # Ignore the genesis block as its timestamp is 0
-        return block_to_point(self._web3.eth.getBlock(1))
+        pass
 
     def get_last_point(self):
-        return block_to_point(self._web3.eth.getBlock('latest'))
+        pass
 
     def get_point(self, x):
-        return block_to_point(self._web3.eth.getBlock(x))
+        pass
 
 
 def block_to_point(block):
-    return Point(block.number, block.timestamp)
+    pass
